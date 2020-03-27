@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Darknet Web</title>
+
+<style>
+
+.result-img {
+
+max-width: 50vw;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<form method="post" action="./" enctype="multipart/form-data">
+
+<input id="input-file" type="file" name="input-img" accept="image/*">
+
+<input id="submit-button" type = "submit" value="送信">
+
+</form>
+
+<progress id="progress-bar" style="display: none"></progress>
+
+<img class="result-img">
+
+
+<script>
+
+const submitBtn = document.querySelector('#submit-button');
+
+const progBar = document.querySelector('#progress-bar');
+
+const resultImg = document.querySelector('.result-img');
+
+
+// submitボタンがクリックされたら
+
+submitBtn.onclick = (evt) => {
+
+// ブラウザデフォルトの挙動をキャンセルする
+
+evt.preventDefault();
+
+ 
+
+// プログレスバーを表示する
+
+progBar.style.display = 'inline';
+
+ 
+
+// 情報をfetchするためのヘッダとボディを作成する
+
+const headers = { 'Accept': 'application/json'};
+
+const body = new FormData();
+
+body.append('input-img', document.querySelector('#input-file').files[0]);
+
+ 
+
+// Fetch APIを利用してサーバに画像を送り返答を待つ
+
+// Fetch APIの詳しい利用方法は以下のURLを参照
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+fetch('./', {method: 'POST', headers, body})
+
+.then(response => response.json())
+
+.then((result) => {
+
+// 帰ってきたJSONに画像のパスが含まれているので
+
+// それをimg要素にセットする
+
+const path = result.path;
+
+resultImg.src = path;
+
+ 
+
+// プログレスバーを非表示にする
+
+progBar.style.display = 'none';
+
+});
+
+};
+
+</script>
+
+</body>
+
+</html>
