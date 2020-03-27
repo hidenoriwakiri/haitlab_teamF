@@ -1,0 +1,2 @@
+/Users/hidenori/Desktop/haitlab/haitlab_teamF/yolov3-voc_10000.weights filter=lfs diff=lfs merge=lfs -text
+yolov3-voc_10000.weights filter=lfs diff=lfs merge=lfs -text
