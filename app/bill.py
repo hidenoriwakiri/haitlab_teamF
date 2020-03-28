@@ -25,7 +25,7 @@ name = {
 'satumaimo':'さつまいも天'
 }
 
-dnDir = '/ここは自分で書いてください/'; #darknetディレクトリへのパス(pythonの場合, ホームディレクトリを"~"とするとうまくいかないようです)
+dnDir = '/Users/hidenori/Desktop/darknet/'; #darknetディレクトリへのパス(pythonの場合, ホームディレクトリを"~"とするとうまくいかないようです, txt_nameと繋げるため, 必ず最後に"/"をつけてください)
 txt_name = 'd.txt'
 txt_path = dnDir+txt_name
 

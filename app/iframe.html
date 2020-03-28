@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="ja">
@@ -13,9 +12,6 @@
     <title>Darknet Web</title>
 
     <style>
-        .result-img {
-            max-width: 50vw;
-        }
 
         .header {
             padding: 30px;
@@ -26,38 +22,33 @@
             margin: 0px;
         }
 
-        .input {
-            padding: 20px;
+        .holder{
             text-align: center;
-            ;
-        }
-
-        #FOOOOOOOD {
-            padding: 10px;
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-
-        input[type="submit"] {
-            display: none;
-        }
-
-        .custom-file-upload {
-            background-color: #20B2AA;
-            color: White;
-            display: inline-block;
-            padding: 20px 70px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .custom-file-upload:hover {
-            opacity: 0.7;
+            padding-top:30px;
+            padding-left:47px;
 
         }
+
+        .holder2{
+          text-align: center;
+
+        }
+
+        .button2 {
+          background-color: #20B2AA;
+          color: White;
+          display: inline-block;
+          padding: 22px 70px;
+          text-align: center;
+          cursor: pointer;
+          font-size:18px;
+
+        }
+
+        .button2:hover {
+          opacity: 0.7;
+        }
+
     </style>
 
 </head>
@@ -65,14 +56,25 @@
 <body>
 
     <div class="header">
-        <h1>Auto-Chashier</h1>
+        <h1>会 計/total</h1>
     </div>
 
 <!-- この1行でchart.htmlの内容を埋め込めます. width, heightは都合の良いように設定してください -->
+<div class="holder">
+    <iframe src="table.html" width = "850" height = "400" frameborder="0"></iframe>
+</div>
 
-<iframe src="table.html" width = "1200" height = "600" frameborder="0"></iframe>
+<div class="holder2">
+  <button id="returnButton" class="button2" type="button">Return</button>
+</div>
 
 </body>
 
-</html>
 
+<script>
+document.getElementById("returnButton").onclick = function () {
+        window.location.href = "index.html";
+    };
+</script>
+
+</html>

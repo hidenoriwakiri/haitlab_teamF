@@ -10,9 +10,12 @@ with open("bill.csv", "r") as f:
         g.write("</head>\n")
             
         g.write("<body>\n")
-        g.write(tab+"<table width = '1000' height = '500'>\n") #tableのwidthとheightを設定できます
+        g.write(tab+"<table width = '800' height = '350'>\n") #tableのwidthとheightを設定できます
         for row in reader:
-            g.write(tab+tab+"<tr>\n")
+            if row[0] == "計":
+                 g.write(tab+tab+"<tr class='total'>\n")
+            else:
+                g.write(tab+tab+"<tr>\n")
             count = 1
             
             for x in row:
@@ -27,3 +30,15 @@ with open("bill.csv", "r") as f:
         g.write(tab+"</table>\n")
         
         g.write("</body>\n")
+        
+        g.write("<style>\n")
+        g.write("table {\n")
+        g.write(tab+"text-align: center;\n")
+        g.write("}\n")
+        g.write("td, th { border: 2px solid #CCC; }\n")
+        g.write(".total{\n")
+        g.write(tab+"background-color: #F1F1F1;\n")
+        g.write("}\n")
+        g.write("</style>\n")
+        
+        g.write("</html>")
