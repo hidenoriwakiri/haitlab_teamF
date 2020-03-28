@@ -26,7 +26,7 @@ app.use(express.static(__dirname));
 
 
 // darknetを導入したディレクトリ(必要に応じて書き換えてください)
-const dnDir = '~/Desktop/haitlab/YOLO/2class/darknet';
+const dnDir = '~/Desktop/darknet';
 
 // HTMLを表示
 app.get('/', (req, res) => res.sendFile('./index.html'));
@@ -42,9 +42,10 @@ console.log(req.file);
 // darknetを実行する。するとpredictions.pngというファイルが出力されるので、
 // それをウェブサーバのディレクトリまでコピーしてくる
 //
+// (岩切用メモ)重みファイル更新する必要あり
 
-// 変更あり 
-execSync(`cd ${dnDir} && ./darknet detector test cfg/obj.data cfg/yolov3-voc_test.cfg backup/yolov3-voc_10000.weights ${__dirname}/${req.file.filename} && cp predictions.jpg ${__dirname}/predictions.jpg`);
+execSync(`cd ${dnDir} && ./darknet detector test cfg/obj.data cfg/yolov3-voc_test.cfg backup/yolov3-voc_10000.weights -thresh 0.5 ${__dirname}/${req.file.filename} && cp predictions.jpg ${__dirname}/predictions.jpg`);
+execSync(`python bill.py`);
 console.log('Darknet done.');
 
 // 画像ファイルのパスをJSONで返す

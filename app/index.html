@@ -3,16 +3,56 @@
 <html lang="ja">
 
 <head>
-
-<meta charset="UTF-8">
+  <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+  <meta charset=utf-8 />
 
 <title>Darknet Web</title>
 
 <style>
 
 .result-img {
-
 max-width: 50vw;
+}
+
+.header {
+  padding: 30px;
+  text-align: center;
+  background: #20B2AA;
+  color: white;
+  font-size: 20px;
+  margin:0px;
+}
+
+.input{
+  padding:20px;
+  text-align: center;;
+}
+
+#FOOOOOOOD{
+  padding:10px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+input[type="submit"] {
+    display: none;
+}
+
+.custom-file-upload {
+  background-color: #20B2AA;
+  color: White;
+  display: inline-block;
+  padding: 20px 70px;
+  text-align: center;
+  cursor: pointer;
+  font-size:18px;
+}
+.custom-file-upload:hover{
+  opacity: 0.7;
 
 }
 
@@ -22,29 +62,46 @@ max-width: 50vw;
 
 <body>
 
-<form method="post" action="./" enctype="multipart/form-data">
+  <div class="header">
+    <h1>Auto-Chashier</h1>
+  </div>
 
-<input id="input-file" type="file" name="input-img" accept="image/*">
-
-<input id="submit-button" type = "submit" value="送信">
-
-</form>
+  <div class="input">
+    <img id="FOOOOOOOD" src="https://via.placeholder.com/640x320?text=Image+of+your+food" alt="your image" /><br>
+    <label for="input-file" class="custom-file-upload">
+         Upload Your Photo
+    </label>
+    <input id="input-file" type="file" name="input-img" onchange="readURL(this);" class="inputSpace" accept="image/*">
+    <label for="submit-button" class="custom-file-upload">
+         Submit
+    </label>
+    <input id="submit-button" type = "submit" value="送信">
+  </div>
+  </body>
 
 <progress id="progress-bar" style="display: none"></progress>
 
-<img class="result-img">
-
- 
 
 <script>
+
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#FOOOOOOOD')
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(200);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
 const submitBtn = document.querySelector('#submit-button');
 
 const progBar = document.querySelector('#progress-bar');
 
 const resultImg = document.querySelector('.result-img');
-
- 
 
 // submitボタンがクリックされたら
 
@@ -54,13 +111,10 @@ submitBtn.onclick = (evt) => {
 
 evt.preventDefault();
 
- 
 
 // プログレスバーを表示する
 
 progBar.style.display = 'inline';
-
- 
 
 // 情報をfetchするためのヘッダとボディを作成する
 
@@ -70,7 +124,7 @@ const body = new FormData();
 
 body.append('input-img', document.querySelector('#input-file').files[0]);
 
- 
+
 
 // Fetch APIを利用してサーバに画像を送り返答を待つ
 
@@ -92,7 +146,7 @@ const path = result.path;
 
 resultImg.src = path;
 
- 
+
 
 // プログレスバーを非表示にする
 
@@ -101,6 +155,19 @@ progBar.style.display = 'none';
 });
 
 };
+//Replace the placeholding image with the Uploaded image
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#FOOOOOOOD')
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(200);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
 </script>
 
