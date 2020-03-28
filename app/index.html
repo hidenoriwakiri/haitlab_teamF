@@ -10,6 +10,36 @@
 
 <title>Darknet Web</title>
 
+
+
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>Auto-Chashier</h1>
+  </div>
+
+  <div class="input">
+     <img id="FOOOOOOOD" src="https://via.placeholder.com/640x320?text=Image+of+your+food" alt="your image" /><br>
+     <label for="input-file" class="custom-file-upload">
+         Upload Your Photo
+     </label>
+     <input id="input-file" type="file" name="input-img" onchange="readURL(this);" class="inputSpace" accept="image/*">
+     <label for="submit-button" class="custom-file-upload">
+         Submit
+     </label>
+     <input id="submit-button" type = "submit" value="送信" >
+  </div>
+
+  <div class="container">
+    <div id=progressBar class="border">
+       <div id="myBar" class="progressbar" style="height:24px;width:1%"></div>
+    </div>
+  </div>
+</body>
+
+
 <style>
 
 .result-img {
@@ -53,36 +83,43 @@ input[type="submit"] {
 }
 .custom-file-upload:hover{
   opacity: 0.7;
+}
 
+.holder{
+  text-align: center;
+}
+
+.border{
+  background-color: #E9EBEE;
+}
+
+.progressbar{
+  background-color: #20B2AA;
+  width: 100px;
+}
+
+.clickable{
+  background-color: ;
 }
 
 </style>
 
-</head>
-
-<body>
-
-  <div class="header">
-    <h1>Auto-Chashier</h1>
-  </div>
-
-  <div class="input">
-    <img id="FOOOOOOOD" src="https://via.placeholder.com/640x320?text=Image+of+your+food" alt="your image" /><br>
-    <label for="input-file" class="custom-file-upload">
-         Upload Your Photo
-    </label>
-    <input id="input-file" type="file" name="input-img" onchange="readURL(this);" class="inputSpace" accept="image/*">
-    <label for="submit-button" class="custom-file-upload">
-         Submit
-    </label>
-    <input id="submit-button" type = "submit" value="送信">
-  </div>
-  </body>
-
-<progress id="progress-bar" style="display: none"></progress>
-
 
 <script>
+
+function move() {
+  var elem = document.getElementById("myBar");
+  var width = 1;
+  var id = setInterval(frame, 10);
+  function frame() {
+    if (width >= 100) {
+      clearInterval(id);
+    } else {
+      width++;
+      elem.style.width = width + '%';
+    }
+  }
+}
 
 function readURL(input) {
         if (input.files && input.files[0]) {
@@ -99,7 +136,7 @@ function readURL(input) {
 
 const submitBtn = document.querySelector('#submit-button');
 
-const progBar = document.querySelector('#progress-bar');
+const progBar = document.querySelector('#progressBar');
 
 const resultImg = document.querySelector('.result-img');
 
@@ -111,10 +148,11 @@ submitBtn.onclick = (evt) => {
 
 evt.preventDefault();
 
+move()
 
 // プログレスバーを表示する
 
-progBar.style.display = 'inline';
+//progBar.style.display = 'inline';
 
 // 情報をfetchするためのヘッダとボディを作成する
 
@@ -123,8 +161,6 @@ const headers = { 'Accept': 'application/json'};
 const body = new FormData();
 
 body.append('input-img', document.querySelector('#input-file').files[0]);
-
-
 
 // Fetch APIを利用してサーバに画像を送り返答を待つ
 
@@ -147,14 +183,13 @@ const path = result.path;
 resultImg.src = path;
 
 
-
 // プログレスバーを非表示にする
 
 progBar.style.display = 'none';
-
 });
 
 };
+
 //Replace the placeholding image with the Uploaded image
 function readURL(input) {
         if (input.files && input.files[0]) {
@@ -168,6 +203,7 @@ function readURL(input) {
             reader.readAsDataURL(input.files[0]);
         }
     }
+
 
 </script>
 

@@ -42,10 +42,11 @@ console.log(req.file);
 // darknetを実行する。するとpredictions.pngというファイルが出力されるので、
 // それをウェブサーバのディレクトリまでコピーしてくる
 //
-// (岩切用メモ)重みファイル更新する必要あり
-
-execSync(`cd ${dnDir} && ./darknet detector test cfg/obj.data cfg/yolov3-voc_test.cfg backup/yolov3-voc_10000.weights -thresh 0.5 ${__dirname}/${req.file.filename} && cp predictions.jpg ${__dirname}/predictions.jpg`);
+//岩切用メモ: 重み変更する必要あり
+execSync(`cd ${dnDir} && ./darknet detector test cfg/obj.data cfg/yolov3-voc_test.cfg backup/yolov3-voc_10000.weights -thresh 0.3 ${__dirname}/${req.file.filename} && cp predictions.jpg ${__dirname}/predictions.jpg`);
 execSync(`python bill.py`);
+execSync(`python convert_to_html.py`);
+
 console.log('Darknet done.');
 
 // 画像ファイルのパスをJSONで返す
