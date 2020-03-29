@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet"
+    type="text/css" />
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+  <meta charset=utf-8 />
+
+  <title>Darknet Web</title>
+
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>Auto-Cashier</h1>
+  </div>
+
+  <div class="input">
+    <img id="FOOOOOOOD" src="https://via.placeholder.com/640x320?text=Image+of+your+food" alt="your image" /><br>
+    <label for="input-file" class="button">
+      Upload Your Photo
+    </label>
+    <input id="input-file" type="file" name="input-img" onchange="readURL(this);" class="inputSpace" accept="image/*">
+    <button id="submit-button" class="button2" type="button">Calculate</button>
+    <button id="submitButton" class="button2" type="button">Show Result</button>
+
+  </div>
+
+  <div class="container">
+    <div id=progressBar class="border">
+      <div id="myBar" class="progressbar" style="height:24px;width:1%"></div>
+    </div>
+  </div>
+</body>
+
+
+<style>
+  .result-img {
+    max-width: 50vw;
+  }
+
+  .header {
+    padding: 30px;
+    text-align: center;
+    background: #20B2AA;
+    color: white;
+    font-size: 20px;
+    margin: 0px;
+  }
+
+  .input {
+    padding: 20px;
+    text-align: center;
+    ;
+  }
+
+  #FOOOOOOOD {
+    padding: 10px;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  input[type="submit"] {
+    display: none;
+  }
+
+  .button {
+    background-color: #20B2AA;
+    color: White;
+    display: inline-block;
+    padding: 20px 70px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  .button:hover {
+    opacity: 0.7;
+  }
+
+  .button2 {
+    background-color: #20B2AA;
+    color: White;
+    display: inline-block;
+    padding: 23px 70px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    margin: 6px;
+
+
+  }
+
+  .button2:hover {
+    opacity: 0.7;
+  }
+
+  .holder {
+    text-align: center;
+  }
+
+  .border {
+    background-color: #E9EBEE;
+  }
+
+  .progressbar {
+    background-color: #20B2AA;
+    width: 100px;
+  }
+
+  .clickable {
+    background-color: ;
+  }
+</style>
+
+
+<script>
+
+  document.getElementById("submitButton").onclick = function () {
+    window.location.href = "iframe.html";
+  };
+
+
+
+  function move() {
+    var elem = document.getElementById("myBar");
+    //var button = document.getElementById("submit-button");
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+      } else {
+        width = width + 0.5;
+        elem.style.width = width + '%';
+      }
+    }
+  }
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#FOOOOOOOD')
+          .attr('src', e.target.result)
+          .width(300)
+          .height(200);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  const submitBtn = document.querySelector('#submit-button');
+
+  const progBar = document.querySelector('#progressBar');
+
+  const resultImg = document.querySelector('.result-img');
+
+  // submitボタンがクリックされたら
+
+  submitBtn.onclick = (evt) => {
+
+    // ブラウザデフォルトの挙動をキャンセルする
+
+    evt.preventDefault();
+
+    move()
+
+    // プログレスバーを表示する
+
+    //progBar.style.display = 'inline';
+
+    // 情報をfetchするためのヘッダとボディを作成する
+
+    const headers = { 'Accept': 'application/json' };
+
+    const body = new FormData();
+
+    body.append('input-img', document.querySelector('#input-file').files[0]);
+
+    // Fetch APIを利用してサーバに画像を送り返答を待つ
+
+    // Fetch APIの詳しい利用方法は以下のURLを参照
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+    fetch('./', { method: 'POST', headers, body })
+
+      .then(response => response.json())
+
+      .then((result) => {
+
+        // 帰ってきたJSONに画像のパスが含まれているので
+
+        // それをimg要素にセットする
+
+        const path = result.path;
+
+        resultImg.src = path;
+
+
+        // プログレスバーを非表示にする
+
+        progBar.style.display = 'none';
+      });
+  };
+
+  //Replace the placeholding image with the Uploaded image
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#FOOOOOOOD')
+          .attr('src', e.target.result)
+          .width(300)
+          .height(200);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+
+</script>
+
+</body>
+
+</html>

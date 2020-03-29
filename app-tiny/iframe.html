@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <meta charset=utf-8 />
+
+    <title>Darknet Web</title>
+
+    <style>
+
+        .header {
+            padding: 30px;
+            text-align: center;
+            background: #20B2AA;
+            color: white;
+            font-size: 20px;
+            margin: 0px;
+        }
+
+        .holder{
+            text-align: center;
+            padding-top:30px;
+            padding-left:47px;
+
+        }
+
+        .holder2{
+          text-align: center;
+
+        }
+
+        .button2 {
+          background-color: #20B2AA;
+          color: White;
+          display: inline-block;
+          padding: 22px 70px;
+          text-align: center;
+          cursor: pointer;
+          font-size:18px;
+
+        }
+
+        .button2:hover {
+          opacity: 0.7;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>会 計/total</h1>
+    </div>
+
+<!-- この1行でchart.htmlの内容を埋め込めます. width, heightは都合の良いように設定してください -->
+<div class="holder">
+    <iframe src="table.html" width = "850" height = "400" frameborder="0"></iframe>
+</div>
+
+<div class="holder2">
+  <button id="returnButton" class="button2" type="button">Return</button>
+</div>
+
+</body>
+
+
+<script>
+document.getElementById("returnButton").onclick = function () {
+        window.location.href = "index.html";
+    };
+</script>
+
+</html>
